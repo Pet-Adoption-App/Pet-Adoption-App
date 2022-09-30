@@ -3,6 +3,7 @@ package com.company.petadoptionapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setBackground(null);
         bottomNavigationView.getMenu().findItem(R.id.placeholder).setEnabled(false);
+        fab = findViewById(R.id.fabAddPet);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
 
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
+        });
+
+        fab.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this,AddPets.class));
         });
     }
 }

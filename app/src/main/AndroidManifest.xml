@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoptionApp">
         <activity
+            android:name=".AddPets"
+            android:exported="false" />
+        <activity
             android:name=".ViewPets"
             android:exported="false" />
         <activity
