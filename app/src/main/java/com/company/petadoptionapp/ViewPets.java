@@ -27,5 +27,7 @@ public class ViewPets extends AppCompatActivity {
         btnCallViewPets = findViewById(R.id.btnCallViewPets);
         btnChatViewPets = findViewById(R.id.btnChatViewPets);
 
+
+
     }
 }

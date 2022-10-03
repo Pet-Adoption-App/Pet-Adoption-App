@@ -2,6 +2,7 @@ package com.company.petadoptionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,8 @@ public class AddPets extends AppCompatActivity {
         btnAddPet = findViewById(R.id.btnAddPet);
         btnAddPetSetLocation = findViewById(R.id.btnAddPetSetLocation);
 
-
+        btnAddPetSetLocation.setOnClickListener(view -> {
+            startActivity(new Intent(this,SetPetLocation.class));
+        });
     }
 }
