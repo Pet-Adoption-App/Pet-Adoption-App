@@ -25,7 +25,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY" />
+            android:value="AIzaSyDYoU1rdHGmL8K_FIaG54KRKOegWaiwsC0" />
 
         <activity
             android:name=".SetPetLocation"
