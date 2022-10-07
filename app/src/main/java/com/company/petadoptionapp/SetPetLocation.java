@@ -10,18 +10,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.company.petadoptionapp.databinding.ActivitySelectPetLocationBinding;
+import com.company.petadoptionapp.databinding.ActivitySetPetLocationBinding;
 
 public class SetPetLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivitySelectPetLocationBinding binding;
+    private ActivitySetPetLocationBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivitySelectPetLocationBinding.inflate(getLayoutInflater());
+        binding = ActivitySetPetLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
