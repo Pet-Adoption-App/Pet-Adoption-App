@@ -43,7 +43,6 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
 
     private GoogleMap mMap;
     private ActivitySetPetLocationBinding binding;
-
     private SearchView svMap;
     private final float DEFAULT_ZOOM = 15f;
     private LatLng petLatLng;
