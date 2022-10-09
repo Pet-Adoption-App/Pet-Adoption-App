@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1675" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1675" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_add_pets.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_set_pet_location.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_view_pets.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/send_card.xml" value="0.7135802469135802" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/user_chat_card.xml" value="0.25" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Pet-Adoption-App/app/src/main/res/layout/activity_add_pets.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Pet-Adoption-App/app/src/main/res/layout/activity_main.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/Kushagra Ahire/AndroidStudioProjects/PetAdoptionApp/app/src/main/res/drawable-v24/email_focused.xml" value="0.16" />
