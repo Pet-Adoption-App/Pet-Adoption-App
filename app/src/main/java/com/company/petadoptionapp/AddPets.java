@@ -1,10 +1,12 @@
 package com.company.petadoptionapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.location.Address;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +20,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AddPets extends AppCompatActivity {
 
@@ -30,6 +38,9 @@ public class AddPets extends AppCompatActivity {
     private RadioButton rbAddPetMale, rbAddPetFemale, rbAddPetCat, rbAddPetDog;
     private Button btnAddPetSetLocation;
     private String petGen,petType;
+    private boolean imageControl = false;
+    private Uri imageUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,10 @@ public class AddPets extends AppCompatActivity {
         btnAddPetSetLocation = findViewById(R.id.btnAddPetSetLocation);
         etAddPetAbout = findViewById(R.id.etAddPetAbout);
 
+        ivAddPet.setOnClickListener(view -> {
+            imageChooser();
+        });
+
         btnAddPetSetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +79,12 @@ public class AddPets extends AppCompatActivity {
                     petType = rbAddPetDog.getText().toString();
                 }
                 if(petGen != "" && petType != ""){
-                    insertData(petGen,petType);
+                    if(imageControl){
+                        insertData(petGen,petType);
+                    }else{
+                        Toast.makeText(AddPets.this, "Please add and Image of Pet", Toast.LENGTH_SHORT).show();
+                    }
+
                 }else{
                     Toast.makeText(AddPets.this, "Check radio button", Toast.LENGTH_SHORT).show();
                 }
@@ -103,8 +123,9 @@ public class AddPets extends AppCompatActivity {
             etAddPetAbout.requestFocus();
             return;
         }
-
         Intent i = new Intent(AddPets.this,SetPetLocation.class);
+
+        i.putExtra("imageUri",imageUri.toString());
         i.putExtra("PetName",name);
         i.putExtra("PetAge",age);
         i.putExtra("PetBreed",breed);
@@ -113,5 +134,24 @@ public class AddPets extends AppCompatActivity {
         i.putExtra("PetType",setPetType);
 
         startActivity(i);
+    }
+
+    public void imageChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==2 && resultCode ==RESULT_OK && data != null){
+            imageUri = data.getData();
+            Picasso.get().load(imageUri).into(ivAddPet);
+            imageControl = true;
+        }else {
+            imageControl = false;
+        }
     }
 }

@@ -42,9 +42,9 @@ public class UserSignUpActivity extends AppCompatActivity {
     private Button btnSignUp;
     private ProgressBar progressBarSU;
 
-    boolean imageControl = false;
-    String name,dob,gender,mobile;
-    String aadhaarNo;
+    private boolean imageControl = false;
+    private String name,dob,gender,mobile;
+    private String aadhaarNo;
 
     Uri imageUri;
 

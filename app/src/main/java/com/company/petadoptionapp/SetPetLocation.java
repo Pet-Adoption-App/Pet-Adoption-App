@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -43,6 +44,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -50,6 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class SetPetLocation extends FragmentActivity implements OnMapReadyCallback {
 
@@ -57,12 +62,15 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
     private ActivitySetPetLocationBinding binding;
     private SearchView svMap;
     private final float DEFAULT_ZOOM = 15f;
-    private LatLng petLatLng;
     private Marker petMarker;
     private Address address;
     private Button btnSubmitLocation;
     private Boolean searchClick = false;
     private List<Address> addressesList;
+
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReference();
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Approval_req");
     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -89,6 +97,7 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         Intent intent = getIntent();
         String name = intent.getStringExtra("PetName");
         String age = intent.getStringExtra("PetAge");
@@ -97,6 +106,9 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         String gender = intent.getStringExtra("PetGender");
         String type = intent.getStringExtra("PetType");
         String UID = FirebaseAuth.getInstance().getUid();
+
+        String img = intent.getStringExtra("imageUri");
+        Uri uriImage = Uri.parse(img);
 
         svMap.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -128,7 +140,7 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
 
         btnSubmitLocation.setOnClickListener(view -> {
             if(searchClick){
-                insertData(name,age,breed,about,gender,type,UID,address);
+                insertData(name,age,breed,about,gender,type,UID,address,uriImage);
             }else{
 
                 Toast.makeText(this, "Please Select a Location", Toast.LENGTH_SHORT).show();
@@ -138,9 +150,10 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
     }
 
     private void insertData(String name, String age, String breed, String about, String gender, String type,
-                            String UID, Address address) {
+                            String UID, Address address, Uri imageUri) {
 
         Map<String,Object> map=new HashMap<>();
+
         map.put("PetName",name);
         map.put("PetAge",age);
         map.put("PetBreed",breed);
@@ -148,11 +161,11 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         map.put("PetGender",gender);
         map.put("PetType",type);
         map.put("PetUser",UID);
-        map.put("latitude",address.getLatitude());
-        map.put("longitude",address.getLongitude());
-        map.put("city",address.getLocality());
-        map.put("state",address.getAdminArea());
-        map.put("country",address.getCountryName());
+        map.put("Latitude",address.getLatitude());
+        map.put("Longitude",address.getLongitude());
+        map.put("City",address.getLocality());
+        map.put("State",address.getAdminArea());
+        map.put("Country",address.getCountryName());
 
         DatabaseReference newRef = reference.push();
         String key = newRef.getKey();
@@ -164,7 +177,7 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
                 insertCountry(address.getCountryName());
                 insertCity(address.getLocality());
                 insertState(address.getAdminArea());
-                startActivity(new Intent(SetPetLocation.this,AddPets.class));
+                startActivity(new Intent(SetPetLocation.this,MainActivity.class));
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -173,6 +186,22 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
                         Toast.makeText(SetPetLocation.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+        UUID randomID = UUID.randomUUID();
+        String imageName = "images/"+randomID+".jpg";
+        storageReference.child(imageName).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                StorageReference myStorageRef = storage.getReference(imageName);
+                myStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        FirebaseDatabase.getInstance().getReference().child("Approval_req")
+                                .child(key).child("ImageUrl").setValue(uri.toString());
+                    }
+                });
+            }
+        });
+
     }
 
     private void insertState(String adminArea) {
@@ -225,9 +254,9 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         });
     }
 
-//    private void insertDataUser(String key, String UID) {
-//        userRef.child(UID).child("MyPets").child(key).setValue(key);
-//    }
+    private void insertDataUser(String key, String UID) {
+        userRef.child(UID).child("MyPets").child(key).setValue(key);
+    }
 
     /**
      * Manipulates the map once available.
