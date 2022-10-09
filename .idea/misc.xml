@@ -3,11 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_email_icon.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_ngo_icon.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_numbers_icon.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_phone_icon.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/email_focused.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/email_icon.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1675" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_business_24.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_business_24_focused.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_local_phone_24_focused.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_numbers_24.xml" value="0.143" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_numbers_24_focused.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1675" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/lock_icon.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_add_pets.xml" value="0.20416666666666666" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_chat.xml" value="0.25" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_forgot_password.xml" value="0.17074275362318841" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_login_ngo.xml" value="0.17074275362318841" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_set_pet_location.xml" value="0.25" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_sign_up_ngo.xml" value="0.1" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_view_pets.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.20416666666666666" />

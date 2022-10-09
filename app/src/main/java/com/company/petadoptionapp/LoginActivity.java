@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView tvRegister,tvForgotPassword;
+    private TextView tvRegister,tvForgotPassword, tvNGOLogin;
     private EditText etLoginEmail, etLoginPass;
     private Button btnLogin;
     private ProgressBar pbLogin;
@@ -42,10 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         etLoginPass = findViewById(R.id.etLoginPassword);
         btnLogin = findViewById(R.id.btnLogin);
         pbLogin = findViewById(R.id.pbLogin);
+        tvNGOLogin = findViewById(R.id.tvNGOLogin);
 
         auth = FirebaseAuth.getInstance();
 
         pbLogin.setVisibility(View.INVISIBLE);
+
+        tvNGOLogin.setOnClickListener(view -> {
+            startActivity(new Intent(this,LoginNGO.class));
+        });
+
+        tvForgotPassword.setOnClickListener(view -> {
+            startActivity(new Intent(this,ForgotPassword.class));
+        });
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -83,7 +83,6 @@
             android:layout_marginBottom="15dp"
             android:backgroundTint="@color/white"
             android:clickable="true"
-            android:stroke = "2dp"
             app:srcCompat="@drawable/ic_baseline_send_24"
             tools:ignore="SpeakableTextPresentCheck"
             android:elevation="6dp"/>
