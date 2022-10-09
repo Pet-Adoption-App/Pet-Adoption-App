@@ -209,6 +209,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="25dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/custom_button"
             android:elevation="6dp"
             android:text="Set Location"
@@ -217,29 +218,11 @@
             android:textStyle="bold"
             app:icon="@drawable/ic_baseline_location_on_24"
             app:iconGravity="textStart"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etAddPetAbout" />
-
-        <Button
-            android:id="@+id/btnAddPet"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/custom_button"
-            android:elevation="6dp"
-            android:text="Add Pet"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAddPetSetLocation" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

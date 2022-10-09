@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public class AddPets extends AppCompatActivity {
     private EditText etAddPetName, etAddPetAge, etAddPetBreed,etAddPetAbout;
     private RadioGroup rgAddPetGender, rgAddPetType;
     private RadioButton rbAddPetMale, rbAddPetFemale, rbAddPetCat, rbAddPetDog;
-    private Button btnAddPetSetLocation, btnAddPet;
-    String petGen,petType;
+    private Button btnAddPetSetLocation;
+    private String petGen,petType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +46,10 @@ public class AddPets extends AppCompatActivity {
         rbAddPetFemale = findViewById(R.id.rbAddPetFemale);
         rbAddPetDog = findViewById(R.id.rbAddPetDog);
         rbAddPetCat = findViewById(R.id.rbAddPetCat);
-        btnAddPet = findViewById(R.id.btnAddPet);
         btnAddPetSetLocation = findViewById(R.id.btnAddPetSetLocation);
         etAddPetAbout = findViewById(R.id.etAddPetAbout);
 
-        btnAddPetSetLocation.setOnClickListener(view -> {
-            startActivity(new Intent(this, SetPetLocation.class));
-        });
-
-        btnAddPet.setOnClickListener(new View.OnClickListener() {
+        btnAddPetSetLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (rbAddPetMale.isChecked()) {
@@ -67,35 +63,55 @@ public class AddPets extends AppCompatActivity {
                 } else if (rbAddPetDog.isChecked()) {
                     petType = rbAddPetDog.getText().toString();
                 }
-                insertData(petGen,petType);
+                if(petGen != "" && petType != ""){
+                    insertData(petGen,petType);
+                }else{
+                    Toast.makeText(AddPets.this, "Check radio button", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
 
     private void insertData(String setPetGen,String setPetType){
-        Map<String,Object>map=new HashMap<>();
-        map.put("etAddPetName",etAddPetName.getText().toString());
-        map.put("etAddPetAge",etAddPetAge.getText().toString());
-        map.put("etAddPetBreed",etAddPetBreed.getText().toString());
-        map.put("etAddPetAbout",etAddPetAbout.getText().toString());
-        map.put("rgAddPetGender",setPetGen);
-        map.put("rgAddPetType",setPetType);
 
+        String name = etAddPetName.getText().toString();
+        String age = etAddPetAge.getText().toString();
+        String breed = etAddPetBreed.getText().toString();
+        String about = etAddPetAbout.getText().toString();
 
-        FirebaseDatabase.getInstance().getReference().child("Approval_req").push()
-                .setValue(map)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(AddPets.this, "Pet Add for Approval", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddPets.this, "Can't Add Pet", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        if(name.isEmpty()){
+            etAddPetName.setError("This field cannot be empty");
+            etAddPetName.requestFocus();
+            return;
+        }
+
+        if(age.isEmpty()){
+            etAddPetAge.setError("This field cannot be empty");
+            etAddPetAge.requestFocus();
+            return;
+        }
+
+        if(breed.isEmpty()){
+            etAddPetBreed.setError("This field cannot be empty");
+            etAddPetBreed.requestFocus();
+            return;
+        }
+
+        if(about.isEmpty()){
+            etAddPetAbout.setError("This field cannot be empty");
+            etAddPetAbout.requestFocus();
+            return;
+        }
+
+        Intent i = new Intent(AddPets.this,SetPetLocation.class);
+        i.putExtra("PetName",name);
+        i.putExtra("PetAge",age);
+        i.putExtra("PetBreed",breed);
+        i.putExtra("PetAbout",about);
+        i.putExtra("PetGender",setPetGen);
+        i.putExtra("PetType",setPetType);
+
+        startActivity(i);
     }
 }

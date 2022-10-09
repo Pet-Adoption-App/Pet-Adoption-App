@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.company.petadoptionapp.databinding.ActivitySetPetLocationBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AddressComponent;
 import com.google.android.libraries.places.api.model.AddressComponents;
@@ -34,10 +37,19 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteFragment;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class SetPetLocation extends FragmentActivity implements OnMapReadyCallback {
 
@@ -50,6 +62,11 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
     private Address address;
     private Button btnSubmitLocation;
     private Boolean searchClick = false;
+    private List<Address> addressesList;
+
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Approval_req");
+    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +78,31 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         svMap = findViewById(R.id.svMap);
         btnSubmitLocation = (Button) findViewById(R.id.btnSubmitLocation);
 
+        String languageToLoad = "en";
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("PetName");
+        String age = intent.getStringExtra("PetAge");
+        String breed = intent.getStringExtra("PetBreed");
+        String about = intent.getStringExtra("PetNAbout");
+        String gender = intent.getStringExtra("PetGender");
+        String type = intent.getStringExtra("PetType");
+        String UID = FirebaseAuth.getInstance().getUid();
 
         svMap.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
 
                 String location = svMap.getQuery().toString();
-                List<Address> addressesList = null;
 
                 if (location != null || !location.equals("")) {
                     searchClick = true;
@@ -96,17 +127,107 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         });
 
         btnSubmitLocation.setOnClickListener(view -> {
-//            if(searchClick){
-//                Intent i = new Intent(SetPetLocation.this,AddPets.class);
-//                i.putExtra("address",address);
-//                startActivity(i);
-//            }else{
-//
-//                Toast.makeText(this, "Please Select a Location", Toast.LENGTH_SHORT).show();
-//            }
+            if(searchClick){
+                insertData(name,age,breed,about,gender,type,UID,address);
+            }else{
+
+                Toast.makeText(this, "Please Select a Location", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
+
+    private void insertData(String name, String age, String breed, String about, String gender, String type,
+                            String UID, Address address) {
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("PetName",name);
+        map.put("PetAge",age);
+        map.put("PetBreed",breed);
+        map.put("PetAbout",about);
+        map.put("PetGender",gender);
+        map.put("PetType",type);
+        map.put("PetUser",UID);
+        map.put("latitude",address.getLatitude());
+        map.put("longitude",address.getLongitude());
+        map.put("city",address.getLocality());
+        map.put("state",address.getAdminArea());
+        map.put("country",address.getCountryName());
+
+        DatabaseReference newRef = reference.push();
+        String key = newRef.getKey();
+        newRef.setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(SetPetLocation.this, "Pet Added for Approval", Toast.LENGTH_SHORT).show();
+//                insertDataUser(key,UID);
+                insertCountry(address.getCountryName());
+                insertCity(address.getLocality());
+                insertState(address.getAdminArea());
+                startActivity(new Intent(SetPetLocation.this,AddPets.class));
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SetPetLocation.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void insertState(String adminArea) {
+        ref.child("State").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild(adminArea)){
+                    ref.child("State").child(adminArea).setValue(adminArea);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void insertCity(String locality) {
+        ref.child("City").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild(locality)){
+                    ref.child("City").child(locality).setValue(locality);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void insertCountry(String countryName) {
+
+        ref.child("Country").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChild(countryName)){
+                    ref.child("Country").child(countryName).setValue(countryName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+//    private void insertDataUser(String key, String UID) {
+//        userRef.child(UID).child("MyPets").child(key).setValue(key);
+//    }
 
     /**
      * Manipulates the map once available.
