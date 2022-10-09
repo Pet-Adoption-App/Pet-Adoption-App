@@ -59,6 +59,7 @@ public class Profile_Fragment extends Fragment {
 
 
         if(user != null){
+            tvLoginSignup.setText("Loading...");
             String uid = user.getUid();
             ref.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

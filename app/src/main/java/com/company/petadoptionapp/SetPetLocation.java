@@ -167,6 +167,7 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         map.put("State",address.getAdminArea());
         map.put("Country",address.getCountryName());
 
+
         DatabaseReference newRef = reference.push();
         String key = newRef.getKey();
         newRef.setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
