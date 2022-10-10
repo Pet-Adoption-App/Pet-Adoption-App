@@ -2,7 +2,6 @@ package com.company.petadoptionapp;
 
 public class UserModel {
     public String userName, userDob, userMobile, userGender , userMail, image;
-
     UserModel(){
 
     }

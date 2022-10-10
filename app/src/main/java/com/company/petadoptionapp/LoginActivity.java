@@ -93,6 +93,12 @@ public class LoginActivity extends AppCompatActivity {
             etLoginPass.requestFocus();
             return;
         }
+        if(pass.length() < 8){
+            etLoginPass.setError("Wrong Password");
+            etLoginPass.requestFocus();
+            return;
+        }
+
         pbLogin.setVisibility(View.VISIBLE);
         auth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

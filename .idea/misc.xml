@@ -21,15 +21,22 @@
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_add_pets.xml" value="0.20416666666666666" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_forgot_password.xml" value="0.17074275362318841" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_homepage_ngo.xml" value="0.21" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_login_ngo.xml" value="0.17074275362318841" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_main.xml" value="0.21" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_set_pet_location.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_sign_up_ngo.xml" value="0.1" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/activity_view_pets.xml" value="0.25" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/fragment_home_n_g_o.xml" value="0.17074275362318841" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/fragment_profile_n_g_o.xml" value="0.17074275362318841" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/send_card.xml" value="0.7135802469135802" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/layout/user_chat_card.xml" value="0.25" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/menu/bottom_nav_menu_NGO.xml" value="0.20416666666666666" />
+        <entry key="..\:/Pet-Adoption-App/app/src/main/res/menu/bottom_nav_menu_ngo.xml" value="0.21614583333333334" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Pet-Adoption-App/app/src/main/res/layout/activity_add_pets.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/Pet-Adoption-App/app/src/main/res/layout/activity_main.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/Kushagra Ahire/AndroidStudioProjects/PetAdoptionApp/app/src/main/res/drawable-v24/email_focused.xml" value="0.16" />

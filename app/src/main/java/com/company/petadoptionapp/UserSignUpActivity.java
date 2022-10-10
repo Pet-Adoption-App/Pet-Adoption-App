@@ -149,6 +149,12 @@ public class UserSignUpActivity extends AppCompatActivity {
             return;
         }
 
+        if(password.length() < 8){
+            etPassword.setError("At least 8 character required");
+            etPassword.requestFocus();
+            return;
+        }
+
         if(confirmPassword.isEmpty()){
             etConfirmPassword.setError("Confirm Password can't be empty");
             etConfirmPassword.requestFocus();

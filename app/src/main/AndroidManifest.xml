@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoptionApp">
         <activity
+            android:name=".AddPetsNGO"
+            android:exported="false" />
+        <activity
+            android:name=".HomepageNGO"
+            android:exported="false" />
+        <activity
             android:name=".SignUpNGO"
             android:exported="false" />
         <activity

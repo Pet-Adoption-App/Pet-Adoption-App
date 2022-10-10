@@ -3,7 +3,9 @@ package com.company.petadoptionapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,8 +76,20 @@ public class SignUpNGO extends AppCompatActivity {
             return;
         }
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            etEmailNGO.setError("Please provide valid Email");
+            etEmailNGO.requestFocus();
+            return;
+        }
+
         if(password.isEmpty()){
             etPasswordNGO.setError("Enter Password");
+            etPasswordNGO.requestFocus();
+            return;
+        }
+
+        if(password.length() < 8){
+            etPasswordNGO.setError("At least 8 characters required");
             etPasswordNGO.requestFocus();
             return;
         }
@@ -107,6 +121,7 @@ public class SignUpNGO extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(SignUpNGO.this, "NGO Registered Successfully", Toast.LENGTH_SHORT).show();
                         pb.setVisibility(View.GONE);
+                        startActivity(new Intent(SignUpNGO.this,LoginNGO.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
