@@ -160,7 +160,7 @@
                     android:paddingStart="25dp"
                     android:paddingTop="6dp"
                     android:paddingEnd="15dp"
-                    android:text="Mobile"
+                    android:text="Phone"
                     android:textColor="@color/teal_200"
                     android:textSize="18sp"
                     android:textStyle="bold" />
