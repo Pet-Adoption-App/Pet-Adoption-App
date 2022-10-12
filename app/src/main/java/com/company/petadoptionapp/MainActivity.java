@@ -84,8 +84,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this,AddPets.class));
-        });
+        if(user != null){
+            fab.setOnClickListener(view -> {
+                startActivity(new Intent(MainActivity.this,AddPets.class));
+            });
+        }else{
+            Toast.makeText(this, "You cannot add pets without Login", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

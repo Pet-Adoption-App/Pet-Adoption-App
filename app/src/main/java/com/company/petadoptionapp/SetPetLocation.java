@@ -1,6 +1,5 @@
 package com.company.petadoptionapp;
 
-import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -11,12 +10,12 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Status;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,16 +27,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.company.petadoptionapp.databinding.ActivitySetPetLocationBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AddressComponent;
-import com.google.android.libraries.places.api.model.AddressComponents;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteFragment;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +38,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -102,7 +90,7 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
         String name = intent.getStringExtra("PetName");
         String age = intent.getStringExtra("PetAge");
         String breed = intent.getStringExtra("PetBreed");
-        String about = intent.getStringExtra("PetNAbout");
+        String about = intent.getStringExtra("PetAbout");
         String gender = intent.getStringExtra("PetGender");
         String type = intent.getStringExtra("PetType");
         String UID = FirebaseAuth.getInstance().getUid();
