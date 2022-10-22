@@ -18,7 +18,7 @@ public class ViewPets extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pets);
 
-        ivViewPets = findViewById(R.id.ivViewPets);
+        ivViewPets = findViewById(R.id.ivViewPet);
         tvAboutViewPets = findViewById(R.id.tvAboutViewPets);
         tvPetNameViewPets = findViewById(R.id.tvPetNameViewPets);
         tvPetAgeViewPets = findViewById(R.id.tvPetAgeViewPets);
