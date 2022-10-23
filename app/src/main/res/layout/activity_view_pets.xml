@@ -185,10 +185,12 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="80dp"
                 app:cardCornerRadius="10dp">
+
                 <ImageView
+                    android:id="@+id/ivViewPetsLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/map_placeholder"/>
+                    android:src="@drawable/map_placeholder" />
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

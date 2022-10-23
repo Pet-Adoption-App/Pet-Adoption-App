@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,8 +20,8 @@ import com.squareup.picasso.Picasso;
 public class ViewPets extends AppCompatActivity {
     String receivePetID;
     DatabaseReference petReference;
-    private ImageView ivViewPets;
-    private TextView tvAboutViewPets, tvPetNameViewPets, tvPetAgeViewPets, tvPetBreedViewPets, tvPetGenderViewPets;
+    private ImageView ivViewPets, ivViewPetsLocation;
+    private TextView tvAboutViewPets, tvPetNameViewPets, tvPetAgeViewPets, tvPetBreedViewPets, tvPetGenderViewPets, tvViewPetsAddress;
     private Button btnCallViewPets, btnChatViewPets;
     @Override
     public void onBackPressed() {
@@ -39,6 +40,8 @@ public class ViewPets extends AppCompatActivity {
         tvPetGenderViewPets = findViewById(R.id.tvPetGenderViewPets);
         btnCallViewPets = findViewById(R.id.btnCallViewPets);
         btnChatViewPets = findViewById(R.id.btnChatViewPets);
+        ivViewPetsLocation = findViewById(R.id.ivViewPetsLocation);
+        tvViewPetsAddress = findViewById(R.id.tvPetAddressViewPets);
 
         petReference = FirebaseDatabase.getInstance().getReference().child("Approved_req");
         receivePetID = getIntent().getStringExtra("view_pet_id");
@@ -53,6 +56,9 @@ public class ViewPets extends AppCompatActivity {
                 tvPetBreedViewPets.setText(pet.getPetBreed());
                 Picasso.get().load(pet.getImageUrl()).into(ivViewPets);
                 tvPetGenderViewPets.setText(pet.getPetGender());
+                String address = pet.getCity()+", "+pet.getState()+", "+pet.getCountry();
+                tvViewPetsAddress.setText(address);
+
             }
 
             @Override
@@ -61,6 +67,14 @@ public class ViewPets extends AppCompatActivity {
             }
         });
 
+        ivViewPetsLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ViewPets.this,ViewPetsLocation.class);
+                i.putExtra("view_pet_id",receivePetID);
+                startActivity(i);
+            }
+        });
 
     }
 }

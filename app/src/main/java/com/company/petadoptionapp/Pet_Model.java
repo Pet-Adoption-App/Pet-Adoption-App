@@ -1,12 +1,13 @@
 package com.company.petadoptionapp;
 
 public class Pet_Model {
-    private String PetAge,PetBreed,PetName,ImageUrl,PetType,PetGender,PetAbout,PetUser;
+    private String PetAge,PetBreed,PetName,ImageUrl,PetType,PetGender,PetAbout,PetUser,City,Country,State;
+    private double Latitude,Longitude;
     Pet_Model(){
 
     }
 
-    public Pet_Model(String petAge, String petBreed, String petName, String imageUrl, String petType, String petGender, String petAbout, String petUser) {
+    public Pet_Model(String petAge, String petBreed, String petName, String imageUrl, String petType, String petGender, String petAbout, String petUser ,String petCountry, String petCity, String petState, double petLongitude, double petLatitude) {
         PetAge = petAge;
         PetBreed = petBreed;
         PetName = petName;
@@ -15,6 +16,51 @@ public class Pet_Model {
         PetGender = petGender;
         PetAbout = petAbout;
         PetUser = petUser;
+        Country = petCountry;
+        City = petCity;
+        State = petState;
+        Longitude = petLongitude;
+        Latitude = petLatitude;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+    }
+
+    public double getLatitude() {
+        return Latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        Latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     public String getPetAge() {

@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_view_pets.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/pet_card_view.xml" value="0.17074275362318841" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_email_icon.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_ngo_icon.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_numbers_icon.xml" value="0.143" />
