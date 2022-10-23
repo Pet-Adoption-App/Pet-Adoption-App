@@ -89,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,AddPets.class));
             });
         }else{
-            Toast.makeText(this, "You cannot add pets without Login", Toast.LENGTH_SHORT).show();
+            fab.setOnClickListener(view -> {
+                Toast.makeText(this, "You cannot add pets without Login", Toast.LENGTH_SHORT).show();
+            });
         }
 
     }

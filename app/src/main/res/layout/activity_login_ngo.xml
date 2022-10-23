@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".LoginNGO"
     android:background="@drawable/app_background"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:paddingTop="30dp">
 
     <ImageView
@@ -75,7 +75,7 @@
 
     <Button
         android:id="@+id/btnLoginNGO"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/custom_button"
@@ -91,7 +91,7 @@
         android:id="@+id/tvRegisterNGO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:text="Register"
         android:textSize="16sp"
@@ -103,14 +103,12 @@
         android:id="@+id/tvForgotPasswordNGO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="147dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="10dp"
         android:text="Forgot Password"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvRegisterNGO"
         app:layout_constraintTop_toBottomOf="@+id/btnLoginNGO" />
 
 
