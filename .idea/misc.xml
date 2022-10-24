@@ -3,13 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/PAA/app/src/main/res/layout/activity_forgot_password.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_add_pets.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_chat.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_forgot_password.xml" value="0.21" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_login_ngo.xml" value="0.21" />
-        <entry key="..\:/PAA/app/src/main/res/layout/activity_register.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_sign_up_ngo.xml" value="0.21" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_user_profile.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_user_sign_up.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_view_lost_pets.xml" value="0.25" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_view_pets.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/pet_card_view.xml" value="0.17074275362318841" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_email_icon.xml" value="0.143" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_ngo_icon.xml" value="0.143" />
