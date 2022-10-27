@@ -35,7 +35,7 @@ public class Profile_Fragment extends Fragment {
     FirebaseAuth auth;
     FirebaseDatabase database;
     DatabaseReference ref;
-    private CardView cvLogin, cvManagePets, cvManageLostPets, cvLogout;
+    private CardView cvLogin, cvManagePets, cvLogout;
     private TextView tvLoginSignup;
     private ImageView ivProfilePhoto;
 
@@ -52,7 +52,6 @@ public class Profile_Fragment extends Fragment {
 
         cvLogin = view.findViewById(R.id.cvLogin);
         cvManagePets = view.findViewById(R.id.cvManagePets);
-        cvManageLostPets = view.findViewById(R.id.cvLostManagePets);
         cvLogout = view.findViewById(R.id.cvLogout);
         tvLoginSignup = view.findViewById(R.id.tvLoginSignup);
         ivProfilePhoto = view.findViewById(R.id.profilePic);
@@ -94,13 +93,6 @@ public class Profile_Fragment extends Fragment {
                 }
             });
 
-            cvManageLostPets.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(getContext(),ManageLostPets.class));
-                }
-            });
-
             cvLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -121,13 +113,6 @@ public class Profile_Fragment extends Fragment {
             });
 
             cvManagePets.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getContext(), "Please Login", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            cvManageLostPets.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), "Please Login", Toast.LENGTH_SHORT).show();

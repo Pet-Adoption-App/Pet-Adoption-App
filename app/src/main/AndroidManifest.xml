@@ -16,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoptionApp">
         <activity
+            android:name=".EditLostPets"
+            android:exported="false" />
+        <activity
+            android:name=".EditPets"
+            android:exported="false" />
+        <activity
             android:name=".ViewLostPets"
             android:exported="false" />
         <!--

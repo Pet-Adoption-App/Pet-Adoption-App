@@ -84,44 +84,6 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvLostManagePets"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        app:cardBackgroundColor="#F5F5F5">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvManageLostPets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_baseline_question_mark_24"
-                android:drawablePadding="20dp"
-                android:paddingStart="20dp"
-                android:text="My Lost Pets"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/arrow_icon"
-                android:layout_gravity="center_vertical"
-                android:paddingEnd="15dp"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/cvLogout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
