@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,9 +23,17 @@ import com.squareup.picasso.Picasso;
 public class ViewPets extends AppCompatActivity {
     String receivePetID;
     DatabaseReference petReference;
+    DatabaseReference userReference;
     private ImageView ivViewPets, ivViewPetsLocation;
     private TextView tvAboutViewPets, tvPetNameViewPets, tvPetAgeViewPets, tvPetBreedViewPets, tvPetGenderViewPets, tvViewPetsAddress;
     private Button btnCallViewPets, btnChatViewPets;
+    String otherUserKey,otherUsername;
+    String otherImage;
+    String currentUser;
+
+    FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(ViewPets.this, MainActivity.class));
@@ -43,9 +54,15 @@ public class ViewPets extends AppCompatActivity {
         ivViewPetsLocation = findViewById(R.id.ivViewPetsLocation);
         tvViewPetsAddress = findViewById(R.id.tvPetAddressViewPets);
 
-        petReference = FirebaseDatabase.getInstance().getReference().child("Approved_req");
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
+
+
+
+
+        petReference = FirebaseDatabase.getInstance().getReference();
         receivePetID = getIntent().getStringExtra("view_pet_id");
-        petReference.child(receivePetID).addListenerForSingleValueEvent(new ValueEventListener() {
+        petReference.child("Approved_req").child(receivePetID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Pet_Model pet = snapshot.getValue(Pet_Model.class);
@@ -58,6 +75,7 @@ public class ViewPets extends AppCompatActivity {
                 tvPetGenderViewPets.setText(pet.getPetGender());
                 String address = pet.getCity()+", "+pet.getState()+", "+pet.getCountry();
                 tvViewPetsAddress.setText(address);
+                otherUserKey = pet.getPetUser();
 
             }
 
@@ -67,12 +85,49 @@ public class ViewPets extends AppCompatActivity {
             }
         });
 
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                otherUsername = snapshot.child(otherUserKey).child("userName").getValue().toString();
+                otherImage = snapshot.child(otherUserKey).child("image").getValue().toString();
+                currentUser = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
         ivViewPetsLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ViewPets.this,ViewPetsLocation.class);
                 i.putExtra("view_pet_id",receivePetID);
                 startActivity(i);
+            }
+        });
+
+        btnChatViewPets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(otherUsername != currentUser) {
+                    Intent i = new Intent(ViewPets.this, ChatActivity.class);
+                    i.putExtra("otherUsername", otherUsername);
+                    i.putExtra("otherImage", otherImage);
+                    i.putExtra("CurrentUser", currentUser);
+                    i.putExtra("otherId", otherUserKey);
+                    i.putExtra("userId", firebaseUser.getUid());
+                    startActivity(i);
+                    //finish();
+                }else
+                {
+                    Toast.makeText(ViewPets.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
