@@ -39,6 +39,7 @@ public class AddPetsNGO extends AppCompatActivity {
     private boolean imageControl = false;
     private Uri imageUri;
 
+
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
 
@@ -144,14 +145,14 @@ public class AddPetsNGO extends AppCompatActivity {
         map.put("PetAddress",address);
         map.put("PetGender",setPetGen);
         map.put("PetType",setPetType);
-
+        map.put("PetUser",UID);
         DatabaseReference newRef = reference.push();
         String key = newRef.getKey();
         newRef.setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(AddPetsNGO.this, "Approval Requested", Toast.LENGTH_SHORT).show();
-                      insertDataUser(key,UID);
+                     // insertDataUser(key,UID);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -197,7 +198,5 @@ public class AddPetsNGO extends AppCompatActivity {
             imageControl = false;
         }
     }
-    private void insertDataUser(String key, String UID) {
-        userRef.child(UID).child("NgoPets").child(key).setValue(key);
-    }
+
 }
