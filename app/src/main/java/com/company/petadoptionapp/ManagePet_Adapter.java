@@ -1,6 +1,7 @@
 package com.company.petadoptionapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +66,18 @@ public class ManagePet_Adapter extends RecyclerView.Adapter<ManagePet_Adapter.Ma
 
             }
         });
+
+
+        String id = pets.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(holder.cvManagePets.getContext(), EditPets.class);
+                i.putExtra("petID",id);
+                holder.cvManagePets.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -76,12 +90,15 @@ public class ManagePet_Adapter extends RecyclerView.Adapter<ManagePet_Adapter.Ma
 
         ImageView imageView;
         TextView petName,petBreed;
+        CardView cvManagePets;
+
         public ManagePetViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.ivShowPet);
             petName = itemView.findViewById(R.id.tvPetName);
             petBreed = itemView.findViewById(R.id.tvPetBreed);
+            cvManagePets = itemView.findViewById(R.id.petview);
         }
     }
 }
