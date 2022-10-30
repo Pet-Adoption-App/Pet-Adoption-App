@@ -15,15 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PetAdoptionApp">
-        <activity
-            android:name=".EditLostPets"
-            android:exported="false" />
-        <activity
-            android:name=".EditPets"
-            android:exported="false" />
-        <activity
-            android:name=".ViewLostPets"
-            android:exported="false" />
+
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -39,6 +31,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDYoU1rdHGmL8K_FIaG54KRKOegWaiwsC0" />
 
+        <activity
+            android:name=".UpdatePetLocation"
+            android:exported="false"
+            android:label="@string/title_activity_update_pet_location" />
+        <activity
+            android:name=".EditLostPets"
+            android:exported="false" />
+        <activity
+            android:name=".EditPets"
+            android:exported="false" />
+        <activity
+            android:name=".ViewLostPets"
+            android:exported="false" />
         <activity
             android:name=".ViewPetsLocation"
             android:exported="false"
