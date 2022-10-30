@@ -121,7 +121,7 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
         String State = address.getAdminArea();
         String Country = address.getCountryName();
 
-        ref.child("Approved_req").child(petID).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("Approval_req").child(petID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 snapshot.getRef().child("Longitude").setValue(Longitude);
