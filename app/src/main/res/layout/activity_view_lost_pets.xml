@@ -192,6 +192,7 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
@@ -202,8 +203,7 @@
             android:textStyle="bold"
             app:icon="@drawable/ic_baseline_call_24"
             app:iconGravity="textStart"
-            app:iconPadding="10dp"
-            android:layout_centerHorizontal="true"/>
+            app:iconPadding="10dp" />
     </RelativeLayout>
 
 </RelativeLayout>

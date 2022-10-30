@@ -1,7 +1,7 @@
 package com.company.petadoptionapp;
 
 public class Pet_Model {
-    private String PetAge,PetBreed,PetName,ImageUrl,PetType,PetGender,PetAbout,PetUser,City,Country,State;
+    private String PetAge,PetBreed,PetName,ImageUrl,PetType,PetGender,PetAbout,PetUser,PetAddress,City,Country,State;
     private double Latitude,Longitude;
     Pet_Model(){
 
@@ -77,6 +77,14 @@ public class Pet_Model {
 
     public void setPetBreed(String petBreed) {
         PetBreed = petBreed;
+    }
+
+    public String getPetAddress() {
+        return PetAddress;
+    }
+
+    public void setPetAddress(String petAddress) {
+        PetAddress = petAddress;
     }
 
     public String getPetName() {
