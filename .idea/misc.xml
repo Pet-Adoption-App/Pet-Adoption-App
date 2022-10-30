@@ -6,7 +6,7 @@
         <entry key="..\:/PAA/app/src/main/res/layout/activity_add_pets.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_add_pets_ngo.xml" value="0.20416666666666666" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_chat.xml" value="0.17074275362318841" />
-        <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_lost_pets.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_lost_pets.xml" value="0.21" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_pets.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_forgot_password.xml" value="0.21" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -23,6 +23,7 @@
         <entry key="..\:/PAA/app/src/main/res/layout/fragment_lost_pet.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/fragment_message.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/fragment_profile_n_g_o.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/pet_card_view.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/user_chat_card.xml" value="0.20416666666666666" />
         <entry key="..\:/Pet-Adoption-App/app/src/main/res/drawable/custom_email_icon.xml" value="0.143" />
