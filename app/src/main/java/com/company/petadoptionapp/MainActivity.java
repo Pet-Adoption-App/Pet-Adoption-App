@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference ref;
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
