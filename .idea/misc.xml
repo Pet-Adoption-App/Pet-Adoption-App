@@ -7,7 +7,7 @@
         <entry key="..\:/PAA/app/src/main/res/layout/activity_add_pets_ngo.xml" value="0.20416666666666666" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_chat.xml" value="0.17074275362318841" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_lost_pets.xml" value="0.21" />
-        <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_pets.xml" value="0.17074275362318841" />
+        <entry key="..\:/PAA/app/src/main/res/layout/activity_edit_pets.xml" value="0.19" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_forgot_password.xml" value="0.21" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/PAA/app/src/main/res/layout/activity_login_ngo.xml" value="0.21" />
@@ -110,9 +110,6 @@
         <entry key="..\:/Users/Kushagra Ahire/AndroidStudioProjects/PetAdoptionApp/app/src/main/res/layout/fragment_profile__fargment.xml" value="0.25" />
         <entry key="..\:/Users/Kushagra Ahire/AndroidStudioProjects/PetAdoptionApp/app/src/main/res/layout/pet_card_view.xml" value="0.25" />
         <entry key="..\:/Users/Kushagra Ahire/AndroidStudioProjects/PetAdoptionApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/final_pet_Adoption_app/app/src/main/res/layout/activity_manage_pets.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/final_pet_Adoption_app/app/src/main/res/layout/pet_card_view.xml" value="0.17074275362318841" />
-        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/final_pet_Adoption_app/app/src/main/res/layout/user_chat_card.xml" value="0.17074275362318841" />
       </map>
     </option>
   </component>
