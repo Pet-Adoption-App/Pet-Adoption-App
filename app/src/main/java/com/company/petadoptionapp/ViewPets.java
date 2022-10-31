@@ -58,8 +58,6 @@ public class ViewPets extends AppCompatActivity {
         firebaseUser = auth.getCurrentUser();
 
 
-
-
         petReference = FirebaseDatabase.getInstance().getReference();
         receivePetID = getIntent().getStringExtra("view_pet_id");
         petReference.child("Approved_req").child(receivePetID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -91,6 +89,7 @@ public class ViewPets extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 otherUsername = snapshot.child(otherUserKey).child("userName").getValue().toString();
                 otherImage = snapshot.child(otherUserKey).child("image").getValue().toString();
+                if(firebaseUser != null)
                 currentUser = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
             }
 
@@ -115,18 +114,21 @@ public class ViewPets extends AppCompatActivity {
         btnChatViewPets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(otherUsername != currentUser) {
-                    Intent i = new Intent(ViewPets.this, ChatActivity.class);
-                    i.putExtra("otherUsername", otherUsername);
-                    i.putExtra("otherImage", otherImage);
-                    i.putExtra("CurrentUser", currentUser);
-                    i.putExtra("otherId", otherUserKey);
-                    i.putExtra("userId", firebaseUser.getUid());
-                    startActivity(i);
-                    //finish();
-                }else
-                {
-                    Toast.makeText(ViewPets.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                if (firebaseUser != null) {
+                    if (otherUsername != currentUser) {
+                        Intent i = new Intent(ViewPets.this, ChatActivity.class);
+                        i.putExtra("otherUsername", otherUsername);
+                        i.putExtra("otherImage", otherImage);
+                        i.putExtra("CurrentUser", currentUser);
+                        i.putExtra("otherId", otherUserKey);
+                        i.putExtra("userId", firebaseUser.getUid());
+                        startActivity(i);
+                        //finish();
+                    } else {
+                        Toast.makeText(ViewPets.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(ViewPets.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
