@@ -1,6 +1,7 @@
 package com.company.petadoptionapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,9 +34,14 @@ public class EditPets extends AppCompatActivity {
     private RadioButton rbEditPetMale, rbEditPetFemale, rbEditPetDog, rbEditPetCat;
     private Button btnUpdatePet, btnDeletePet;
     private ConstraintLayout clEditPets;
+    private String name,age,about,breed,gender,petType;
+    String petID;
 
     FirebaseDatabase database;
     DatabaseReference ref;
+    DatabaseReference reference;
+    FirebaseAuth auth;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +66,66 @@ public class EditPets extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference().child("Approved_req");
+        reference = database.getReference();
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
 
         Intent i = getIntent();
-        String petID = i.getStringExtra("petID");
+        petID = i.getStringExtra("petID");
 
         setValues(petID);
 
+
+        btnDeletePet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.child(petID).removeValue();
+                reference.child("Users").child(firebaseUser.getUid()).child("MyPets").child(petID).removeValue();
+            }
+        });
+
+
+
         btnUpdatePet.setOnClickListener(view -> {
             // Write code here charchil
+            name = etEditPetName.getText().toString();
+            ref.child(petID).child("PetName").setValue(name);
+            age = etEditPetAge.getText().toString();
+            ref.child(petID).child("PetAge").setValue(age);
+            about = etEditPetAbout.getText().toString();
+            ref.child(petID).child("PetAbout").setValue(about);
+            breed = etEditPetBreed.getText().toString();
+            ref.child(petID).child("PetBreed").setValue(breed);
+            if(rbEditPetMale.isChecked())
+            {
+                gender = "Male";
+            }
+            else if(rbEditPetFemale.isChecked())
+            {
+                gender = "Female";
+            }
+            ref.child(petID).child("PetGender").setValue(gender);
+
+            if(rbEditPetDog.isChecked())
+            {
+                petType = "Dog";
+            }
+            else if(rbEditPetCat.isChecked())
+            {
+                petType = "Cat";
+            }
+            ref.child(petID).child("PetType").setValue(petType);
+
 
 
             alert(petID);
         });
+
     }
+
+
+
+
 
     private void alert(String petID) {
         AlertDialog.Builder builder = new AlertDialog.Builder(EditPets.this);
@@ -79,6 +135,7 @@ public class EditPets extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                send_for_approvel(ref.child(petID),reference.child("Approval_req").child(petID));
                 Intent intent = new Intent(EditPets.this,UpdatePetLocation.class);
                 intent.putExtra("petID",petID);
                 startActivity(intent);
@@ -87,6 +144,8 @@ public class EditPets extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                //copyrecord
+                send_for_approvel(ref.child(petID),reference.child("Approval_req").child(petID));
                 startActivity(new Intent(EditPets.this,MainActivity.class));
             }
         });
@@ -119,6 +178,33 @@ public class EditPets extends AppCompatActivity {
                 }
 
                 clEditPets.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    public void send_for_approvel(DatabaseReference fromPath, final DatabaseReference toPath)
+    {
+        fromPath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                toPath.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error != null) {
+                            Toast.makeText(getApplicationContext(), "Approval Failed", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Approved", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                ref.child(petID).removeValue();
+                reference.child("Users").child(firebaseUser.getUid()).child("MyPets").child(petID).removeValue();
             }
 
             @Override
