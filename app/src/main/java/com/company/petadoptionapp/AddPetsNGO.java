@@ -31,7 +31,7 @@ import java.util.UUID;
 
 public class AddPetsNGO extends AppCompatActivity {
     private ImageView ivAddPetNGO;
-    private EditText etAddPetNameNGO, etAddPetAgeNGO, etAddPetBreedNGO,etAddPetAboutNGO,etAddPetAddressNGO;
+    private EditText etAddPetAgeNGO, etAddPetBreedNGO,etAddPetAboutNGO,etAddPetAddressNGO;
     private RadioGroup rgAddPetGenderNGO, rgAddPetTypeNGO;
     private RadioButton rbAddPetMaleNGO, rbAddPetFemaleNGO, rbAddPetCatNGO, rbAddPetDogNGO;
     private Button btnAddPetNGO;
@@ -53,7 +53,6 @@ public class AddPetsNGO extends AppCompatActivity {
         setContentView(R.layout.activity_add_pets_ngo);
 
         ivAddPetNGO = findViewById(R.id.ivAddPetNGO);
-        etAddPetNameNGO = findViewById(R.id.etAddPetNameNGO);
         etAddPetAgeNGO = findViewById(R.id.etAddPetAgeNGO);
         etAddPetBreedNGO = findViewById(R.id.etAddPetBreedNGO);
         etAddPetAddressNGO=findViewById(R.id.etAddPetAddressNGO);
@@ -103,17 +102,11 @@ public class AddPetsNGO extends AppCompatActivity {
 
     private void insertData(String setPetGen,String setPetType,String UID) {
 
-        String name = etAddPetNameNGO.getText().toString();
         String age = etAddPetAgeNGO.getText().toString();
         String breed = etAddPetBreedNGO.getText().toString();
         String about = etAddPetAboutNGO.getText().toString();
         String address=etAddPetAddressNGO.getText().toString();
 
-        if (name.isEmpty()) {
-            etAddPetNameNGO.setError("This field cannot be empty");
-            etAddPetNameNGO.requestFocus();
-            return;
-        }
 
         if (age.isEmpty()) {
             etAddPetAgeNGO.setError("This field cannot be empty");
@@ -138,7 +131,6 @@ public class AddPetsNGO extends AppCompatActivity {
             return;
         }
         Map<String,Object>map =new HashMap<>();
-        map.put("PetName" ,name);
         map.put("PetAge" ,age);
         map.put("PetBreed" ,breed);
         map.put("PetAbout" ,about);
