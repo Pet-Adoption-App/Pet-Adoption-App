@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class ViewPets extends AppCompatActivity {
     String otherUserKey,otherUsername;
     String otherImage;
     String currentUser;
+    String userPhone;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
@@ -56,8 +58,6 @@ public class ViewPets extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
-
-
 
 
         petReference = FirebaseDatabase.getInstance().getReference();
@@ -91,7 +91,10 @@ public class ViewPets extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 otherUsername = snapshot.child(otherUserKey).child("userName").getValue().toString();
                 otherImage = snapshot.child(otherUserKey).child("image").getValue().toString();
-                currentUser = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
+                if(firebaseUser != null) {
+                    currentUser = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
+                    userPhone = snapshot.child(firebaseUser.getUid()).child("userMobile").getValue().toString();
+                }
             }
 
             @Override
@@ -115,21 +118,44 @@ public class ViewPets extends AppCompatActivity {
         btnChatViewPets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(otherUsername != currentUser) {
-                    Intent i = new Intent(ViewPets.this, ChatActivity.class);
-                    i.putExtra("otherUsername", otherUsername);
-                    i.putExtra("otherImage", otherImage);
-                    i.putExtra("CurrentUser", currentUser);
-                    i.putExtra("otherId", otherUserKey);
-                    i.putExtra("userId", firebaseUser.getUid());
-                    startActivity(i);
-                    //finish();
-                }else
-                {
-                    Toast.makeText(ViewPets.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                if (firebaseUser != null) {
+                    if (otherUsername != currentUser) {
+                        Intent i = new Intent(ViewPets.this, ChatActivity.class);
+                        i.putExtra("otherUsername", otherUsername);
+                        i.putExtra("otherImage", otherImage);
+                        i.putExtra("CurrentUser", currentUser);
+                        i.putExtra("otherId", otherUserKey);
+                        i.putExtra("userId", firebaseUser.getUid());
+                        startActivity(i);
+                        //finish();
+                    } else {
+                        Toast.makeText(ViewPets.this, "Not allowed", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(ViewPets.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        btnCallViewPets.setOnClickListener(view -> {
+            if(firebaseUser != null){
+                if(currentUser != otherUsername){
+                    dailPhone(userPhone);
+                }else {
+                    Toast.makeText(this, "Not allowed", Toast.LENGTH_SHORT).show();
+                }
+
+            }else{
+                Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void dailPhone(String userPhone) {
+        String uri = "tel:"+userPhone.trim();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
     }
 }

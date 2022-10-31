@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,6 +30,8 @@ public class ViewPetsLocation extends FragmentActivity implements OnMapReadyCall
     private ActivityViewPetsLocationBinding binding;
     private Marker petMarker;
     private final float DEFAULT_ZOOM = 15f;
+    private Button btnGoogleMaps;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class ViewPetsLocation extends FragmentActivity implements OnMapReadyCall
 
         binding = ActivityViewPetsLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        btnGoogleMaps = findViewById(R.id.btnGoogleMaps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -48,6 +55,7 @@ public class ViewPetsLocation extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Pet_Model pet_model = snapshot.getValue(Pet_Model.class);
+                address = pet_model.getLatitude()+","+pet_model.getLongitude();
                 petMarker.setPosition(new LatLng(pet_model.getLatitude(),pet_model.getLongitude()));
                 moveCamera((new LatLng(pet_model.getLatitude(),pet_model.getLongitude())),DEFAULT_ZOOM);
             }
@@ -58,6 +66,23 @@ public class ViewPetsLocation extends FragmentActivity implements OnMapReadyCall
             }
         });
 
+        btnGoogleMaps.setOnClickListener(view -> {
+
+            if(address != null || address.equals("")){
+                openMap(address);
+            }else{
+                Toast.makeText(this, "ERROR : Location is empty", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+    }
+
+    private void openMap(String address) {
+        Uri uri = Uri.parse("geo:0, 0?q="+address);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.google.android.apps.maps");
+        startActivity(intent);
     }
 
     /**

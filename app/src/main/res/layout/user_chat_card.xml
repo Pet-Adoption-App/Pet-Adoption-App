@@ -4,10 +4,10 @@
     android:id="@+id/cvUserChat"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:layout_margin="3dp"
-    android:backgroundTint="#3CD1C4E9"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="3dp">
+    android:layout_marginBottom="2dp"
+    android:layout_marginEnd="2dp"
+    android:layout_marginStart="2dp"
+    app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
