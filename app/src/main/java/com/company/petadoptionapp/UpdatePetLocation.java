@@ -1,6 +1,7 @@
 package com.company.petadoptionapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import android.app.SearchManager;
 import android.widget.SearchView;
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.company.petadoptionapp.databinding.ActivityUpdatePetLocationBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +50,10 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
     private Address address;
     private final float DEFAULT_ZOOM = 15f;
     private Marker petMarker;
+    DatabaseReference reference;
+    FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+    String petID;
 
     FirebaseDatabase database;
     DatabaseReference ref;
@@ -68,9 +75,12 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
 
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
+        reference = database.getReference();
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
 
         Intent intent = getIntent();
-        String petID = intent.getStringExtra("petID");
+        petID = intent.getStringExtra("petID");
 
         displayLocation(petID);
 
@@ -109,6 +119,8 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
                 Toast.makeText(this, "Updated Pet added for approval", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UpdatePetLocation.this,MainActivity.class));
             }
+            send_for_approvel(ref.child("Approved_req").child(petID),reference.child("Approval_req").child(petID));
+            startActivity(new Intent(UpdatePetLocation.this,MainActivity.class));
         });
     }
 
@@ -121,7 +133,7 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
         String State = address.getAdminArea();
         String Country = address.getCountryName();
 
-        ref.child("Approval_req").child(petID).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("Approved_req").child(petID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 snapshot.getRef().child("Longitude").setValue(Longitude);
@@ -134,7 +146,7 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
                 insertState(address.getAdminArea());
 
                 Toast.makeText(UpdatePetLocation.this, "Updated Pet added for Approval", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UpdatePetLocation.this,MainActivity.class));
+                //startActivity(new Intent(UpdatePetLocation.this,MainActivity.class));
             }
 
             @Override
@@ -237,5 +249,32 @@ public class UpdatePetLocation extends FragmentActivity implements OnMapReadyCal
 
     public void moveCamera(LatLng latLng , float zoom){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoom));
+    }
+
+
+    public void send_for_approvel(DatabaseReference fromPath, final DatabaseReference toPath)
+    {
+        fromPath.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                toPath.setValue(snapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error != null) {
+                            Toast.makeText(getApplicationContext(), "Approval Failed", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Approved", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                ref.child("Approved_req").child(petID).removeValue();
+                reference.child("Users").child(firebaseUser.getUid()).child("MyPets").child(petID).removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

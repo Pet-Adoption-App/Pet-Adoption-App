@@ -135,7 +135,7 @@ public class EditPets extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                send_for_approvel(ref.child(petID),reference.child("Approval_req").child(petID));
+               // send_for_approvel(ref.child(petID),reference.child("Approval_req").child(petID));
                 Intent intent = new Intent(EditPets.this,UpdatePetLocation.class);
                 intent.putExtra("petID",petID);
                 startActivity(intent);
@@ -213,4 +213,5 @@ public class EditPets extends AppCompatActivity {
             }
         });
     }
+
 }

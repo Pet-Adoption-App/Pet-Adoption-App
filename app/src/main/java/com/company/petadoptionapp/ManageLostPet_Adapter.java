@@ -65,6 +65,16 @@ public class ManageLostPet_Adapter extends RecyclerView.Adapter<ManageLostPet_Ad
 
             }
         });
+
+        String id = pets.get(position);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context,EditLostPets.class);
+                i.putExtra("petID",id);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -76,11 +86,14 @@ public class ManageLostPet_Adapter extends RecyclerView.Adapter<ManageLostPet_Ad
 
         ImageView imageView;
         TextView petGender,petBreed;
+        CardView cardView;
         public MagageLostPetViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.ivShowPet);
             petGender = itemView.findViewById(R.id.tvPetName);
             petBreed = itemView.findViewById(R.id.tvPetBreed);
+
+            cardView = itemView.findViewById(R.id.petview);
         }
     }
 }
