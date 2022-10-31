@@ -74,6 +74,8 @@ public class ProfileFragmentNGO extends Fragment {
         });
 
         cvMyPetsNGO.setOnClickListener(view1 -> {
+            Intent i = new Intent(getContext(),ManageLostPets.class);
+            startActivity(i);
 
         });
 
