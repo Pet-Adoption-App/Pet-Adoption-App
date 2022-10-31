@@ -3,6 +3,7 @@ package com.company.petadoptionapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +48,8 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        getSupportActionBar().hide();
+        getWindow().setStatusBarColor(ContextCompat.getColor(ChatActivity.this,R.color.black));
 
         othername = getIntent().getStringExtra("otherUsername");
         otherUserImage = getIntent().getStringExtra("otherImage");
