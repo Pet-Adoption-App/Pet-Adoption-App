@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,8 +27,11 @@ public class ViewLostPets extends AppCompatActivity {
     private TextView tvAboutViewLostPets, tvPetAgeViewLostPets,
             tvPetBreedViewLostPets, tvPetGenderViewLostPets, tvPetAddressViewLostPets;
     private Button btnCallViewLostPets ;
-
     String currentUser;
+
+    String userPhone,otherUsername;
+
+    FirebaseUser firebaseUser;
 
 
 
@@ -49,6 +54,9 @@ public class ViewLostPets extends AppCompatActivity {
         tvPetAddressViewLostPets = findViewById(R.id.tvPetAddressViewLostPets);
 
         btnCallViewLostPets = findViewById(R.id.btnCallViewLostPets);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        otherUsername =FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         petReference = FirebaseDatabase.getInstance().getReference();
         receivePetID = getIntent().getStringExtra("view_lost_pet_id");
@@ -65,13 +73,46 @@ public class ViewLostPets extends AppCompatActivity {
                 tvPetGenderViewLostPets.setText(pet.getPetGender());
                 tvPetAddressViewLostPets.setText(pet.getPetAddress());
                 currentUser = pet.getPetUser();
+                FirebaseDatabase.getInstance().getReference().child("NGO").child(currentUser).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        NGO_Model user = snapshot.getValue(NGO_Model.class);
+                        userPhone= user.getNgoPhone();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        btnCallViewLostPets.setOnClickListener(view -> {
+            if(firebaseUser != null){
+                if(currentUser != otherUsername){
+                    dailPhone(userPhone);
+                }else {
+                    Toast.makeText(this, "Not allowed", Toast.LENGTH_SHORT).show();
+                }
+
+            }else{
+                Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
-}
+
+    private void dailPhone(String userPhone) {
+        String uri = "tel:"+userPhone.trim();
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
+    }
+    }

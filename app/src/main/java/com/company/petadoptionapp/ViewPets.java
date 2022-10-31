@@ -76,6 +76,18 @@ public class ViewPets extends AppCompatActivity {
                 String address = pet.getCity()+", "+pet.getState()+", "+pet.getCountry();
                 tvViewPetsAddress.setText(address);
                 otherUserKey = pet.getPetUser();
+                FirebaseDatabase.getInstance().getReference().child("Users").child(otherUserKey).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        UserModel user = snapshot.getValue(UserModel.class);
+                        userPhone= user.getUserMobile();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
 
@@ -93,7 +105,7 @@ public class ViewPets extends AppCompatActivity {
                 otherImage = snapshot.child(otherUserKey).child("image").getValue().toString();
                 if(firebaseUser != null) {
                     currentUser = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
-                    userPhone = snapshot.child(firebaseUser.getUid()).child("userMobile").getValue().toString();
+
                 }
             }
 
