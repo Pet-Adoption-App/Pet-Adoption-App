@@ -162,7 +162,6 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(SetPetLocation.this, "Pet Added for Approval", Toast.LENGTH_SHORT).show();
-                insertDataUser(key,UID);
                 insertCountry(address.getCountryName());
                 insertCity(address.getLocality());
                 insertState(address.getAdminArea());
@@ -241,10 +240,6 @@ public class SetPetLocation extends FragmentActivity implements OnMapReadyCallba
 
             }
         });
-    }
-
-    private void insertDataUser(String key, String UID) {
-        userRef.child(UID).child("MyPets").child(key).child("PetID").setValue(key);
     }
 
     /**
