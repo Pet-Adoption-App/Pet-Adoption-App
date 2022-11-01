@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.hasChild(uid)){
-                        Toast.makeText(MainActivity.this, "Welcome", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(MainActivity.this, HomepageNGO.class));
                     }
                 }
