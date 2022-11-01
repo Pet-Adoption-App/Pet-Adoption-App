@@ -75,21 +75,21 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 s = s.substring(0, 1).toUpperCase() + s.substring(1);
-                checkSearch(s);
+                checkSearch(s,true);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 s = s.substring(0, 1).toUpperCase() + s.substring(1);
-                checkSearch(s);
+                checkSearch(s,false);
                 return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void checkSearch(String s) {
+    private void checkSearch(String s, boolean check) {
         city.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,7 +108,9 @@ public class HomeFragment extends Fragment {
                                         if(snapshot.hasChild(s)){
                                             searchState(s);
                                         }else{
-                                            Toast.makeText(getContext(), "Not Found", Toast.LENGTH_SHORT).show();
+                                            if(check == true) {
+                                                Toast.makeText(getContext(), "Not Found", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     }
 
