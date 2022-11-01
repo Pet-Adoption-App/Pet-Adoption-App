@@ -42,6 +42,7 @@ public class LostPetFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_lost_pet, container, false);
         recyclerView=view.findViewById(R.id.rv_lost_list);
+        recyclerView.setItemAnimator(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         setHasOptionsMenu(true);
         FirebaseRecyclerOptions<Pet_Model> options =

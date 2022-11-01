@@ -36,6 +36,7 @@ public class HomeFragmentNGO extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_n_g_o, container, false);
         setHasOptionsMenu(true);
         recyclerView=view.findViewById(R.id.rv_lost_list_NGO);
+        recyclerView.setItemAnimator(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<Pet_Model> options =
