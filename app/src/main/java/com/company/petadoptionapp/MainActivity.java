@@ -79,8 +79,12 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,lostPetFragment).commit();
                         return true;
                     case R.id.message:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container,messageFragment).commit();
-                        return true;
+                        if(user != null) {
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, messageFragment).commit();
+                            return true;
+                        }else{
+                            Toast.makeText(MainActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
+                        }
                     case R.id.profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
                         return true;
