@@ -70,13 +70,13 @@ public class ProfileFragmentNGO extends Fragment {
         cvLogoutNGO.setOnClickListener(view1 -> {
             auth.signOut();
             Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getContext(),LoginNGO.class));
+            startActivity(new Intent(getContext(),LoginActivity.class));
+            getActivity().finish();
         });
 
         cvMyPetsNGO.setOnClickListener(view1 -> {
             Intent i = new Intent(getContext(),ManageLostPets.class);
             startActivity(i);
-
         });
 
         return view;

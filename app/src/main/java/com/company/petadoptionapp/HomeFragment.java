@@ -74,13 +74,15 @@ public class HomeFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                s = s.substring(0, 1).toUpperCase() + s.substring(1);
                 checkSearch(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                searchCity(s);
+                s = s.substring(0, 1).toUpperCase() + s.substring(1);
+                checkSearch(s);
                 return false;
             }
         });

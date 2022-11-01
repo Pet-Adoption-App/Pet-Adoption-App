@@ -56,7 +56,9 @@ public class ViewLostPets extends AppCompatActivity {
         btnCallViewLostPets = findViewById(R.id.btnCallViewLostPets);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        otherUsername =FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(firebaseUser != null) {
+            otherUsername = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }
 
         petReference = FirebaseDatabase.getInstance().getReference();
         receivePetID = getIntent().getStringExtra("view_lost_pet_id");
