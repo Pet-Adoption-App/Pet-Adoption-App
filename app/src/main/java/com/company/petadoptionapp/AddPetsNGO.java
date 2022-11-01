@@ -145,6 +145,8 @@ public class AddPetsNGO extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(AddPetsNGO.this, "Approval Requested", Toast.LENGTH_SHORT).show();
                      // insertDataUser(key,UID);
+                        startActivity(new Intent(AddPetsNGO.this,HomepageNGO.class));
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
